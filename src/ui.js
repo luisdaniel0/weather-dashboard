@@ -1,4 +1,4 @@
-export const updateWeatherDisplay = (processedData) => {
+export const updateWeatherDisplay = (processedData, extractedOtherCities) => {
   const userLocation = document.querySelector(".currentLocation");
   const currentTemp = document.querySelector(".temp");
   const feelsLike = document.querySelector(".feelsLike");
@@ -59,5 +59,36 @@ export const updateWeatherDisplay = (processedData) => {
     forecast.appendChild(forecastIcon);
 
     upcomingWeather.appendChild(forecast);
+  });
+
+  console.log(extractedOtherCities);
+
+  //   other cities
+  extractedOtherCities.location.forEach((city) => {
+    console.log(city);
+    const cities = document.createElement("div");
+    cities.classList.add("city-card");
+
+    const cityName = document.createElement("div");
+    cityName.classList.add("city-name");
+    cityName.textContent = city.address;
+    cities.appendChild(cityName);
+
+    const cityCondition = document.createElement("div");
+    cityCondition.classList.add("city-condition");
+    cityCondition.textContent = city.condition;
+    cities.appendChild(cityCondition);
+
+    const cityTemp = document.createElement("div");
+    cityTemp.classList.add("city-temp");
+    cityTemp.textContent = city.temp;
+    cities.appendChild(cityTemp);
+
+    const cityIcon = document.createElement("div");
+    cityIcon.classList.add("city-icon");
+    cityIcon.textContent = city.icon;
+    cities.appendChild(cityIcon);
+
+    otherCities.appendChild(cities);
   });
 };
