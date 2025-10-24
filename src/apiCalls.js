@@ -64,12 +64,13 @@ const fetchAddress = async (latitude, longitude) => {
   const api = await fetch(
     `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
   );
-  const response = await api.json();
-  // console.log(response.address.city);
-
-  const data = response.address.city;
-  // console.log(data);
-  return data;
+  try {
+    const response = await api.json();
+    const data = response.address.city;
+    return data;
+  } catch (error) {
+    console.error("Error in Open Street API call", error.message);
+  }
 };
 
 //userInput weather api call
@@ -95,10 +96,16 @@ export const fetchOtherCities = async () => {
   const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timelinemulti?key=${apiKey}&locations=${encodeURIComponent(
     "Los Angeles|Miami|Las Vegas"
   )}`;
-  const otherCities = ["Los Angeles", "Las Vegas", "Miami", "New Jersey", ""];
 
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log(data);
-  return data;
+  try {
+    if (!response.ok) {
+      throw new Error("City is not found!");
+    }
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error in API call", error.message);
+    return null;
+  }
 };
