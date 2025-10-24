@@ -3,20 +3,25 @@ import {
   fetchUserInputData,
   fetchOtherCities,
 } from "./apiCalls.js";
-import { extractedData } from "./extractedData.js";
+
+import {
+  extractedData,
+  extractedInputData,
+  extractedOtherCitiesData,
+} from "./extractedData.js";
 
 const displayWeather = async () => {
   const rawdata = await getLocationWeather();
-  console.log(rawdata);
+
   console.log(extractedData(rawdata));
 };
 displayWeather();
 
-const form = document.querySelector("#form");
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const userInput = e.target.elements.searchInput.value;
-
-  fetchUserInputData(userInput);
-  fetchOtherCities();
+  const rawInputData = await fetchUserInputData(userInput);
+  console.log(extractedInputData(rawInputData));
+  const otherCitiesData = await fetchOtherCities();
+  console.log(extractedOtherCitiesData(otherCitiesData));
 });

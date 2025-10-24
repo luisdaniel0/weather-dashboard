@@ -83,7 +83,6 @@ export const fetchUserInputData = async (location) => {
       throw new Error("City not found!");
     }
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error in APi call", error.message);
@@ -94,12 +93,12 @@ export const fetchUserInputData = async (location) => {
 export const fetchOtherCities = async () => {
   const apiKey = "FNQB4HDGXF3W4ELCDM7QU94BX";
   const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timelinemulti?key=${apiKey}&locations=${encodeURIComponent(
-    "los angeles|miami|las vegas"
+    "Los Angeles|Miami|Las Vegas"
   )}`;
-  const otherCities = ["Los Angeles", "Las Vegas", "Miami"];
+  const otherCities = ["Los Angeles", "Las Vegas", "Miami", "New Jersey", ""];
 
   const response = await fetch(url);
   const data = await response.json();
   console.log(data);
-  console.log(response);
+  return data;
 };
