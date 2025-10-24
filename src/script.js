@@ -1,4 +1,8 @@
-import { getLocationWeather, fetchUserInputData } from "./apiCalls.js";
+import {
+  getLocationWeather,
+  fetchUserInputData,
+  fetchOtherCities,
+} from "./apiCalls.js";
 import { extractedData } from "./extractedData.js";
 
 const displayWeather = async () => {
@@ -14,4 +18,5 @@ form.addEventListener("submit", (e) => {
   const userInput = e.target.elements.searchInput.value;
 
   fetchUserInputData(userInput);
+  fetchOtherCities();
 });

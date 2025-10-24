@@ -90,3 +90,16 @@ export const fetchUserInputData = async (location) => {
     return null;
   }
 };
+
+export const fetchOtherCities = async () => {
+  const apiKey = "FNQB4HDGXF3W4ELCDM7QU94BX";
+  const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timelinemulti?key=${apiKey}&locations=${encodeURIComponent(
+    "los angeles|miami|las vegas"
+  )}`;
+  const otherCities = ["Los Angeles", "Las Vegas", "Miami"];
+
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log(data);
+  console.log(response);
+};
